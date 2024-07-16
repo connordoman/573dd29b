@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Call, getCallDetails } from "../api";
 import { MdCallMade, MdInfoOutline, MdOutlineCallMissed, MdOutlineVoicemail } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 interface ActivityProps {
     call: Call;
@@ -49,9 +50,9 @@ export default function Activity({ call, index }: ActivityProps) {
                 <h3 className="font-bold text-lg">{callerNumber}</h3>
                 <span className="font-xs text-zinc-300">{createdDate.toLocaleString()}</span>
             </div>
-            <motion.button className="text-xl" onClick={handleInfoButtonClick}>
+            <Link to={`${call.id}`} className="text-xl">
                 <MdInfoOutline className="text-slate-500" />
-            </motion.button>
+            </Link>
         </motion.div>
     );
 }
