@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Call, getAllCalls } from "../api";
 import Header from "../Header";
 import Activity from "./Activity";
+import Container from "../Container";
 
 export default function ActivityFeed() {
     const [calls, setCalls] = useState<Call[]>();
@@ -16,14 +17,13 @@ export default function ActivityFeed() {
     }, []);
 
     return (
-        <div className="container">
+        <Container>
             <Header />
-            <div className="activity-feed">
-                {calls?.map((c) => {
-                    return <Activity call={c} key={c.id} />;
+            <div className="relative flex flex-col overflow-y-scroll gap-6 px-3 py-6 flex-grow overflow-x-hidden">
+                {calls?.map((c, index) => {
+                    return <Activity call={c} index={index} key={c.id} />;
                 })}
-                <pre>{JSON.stringify(calls, null, 2)}</pre>
             </div>
-        </div>
+        </Container>
     );
 }

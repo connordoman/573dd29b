@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import Header from "./Header";
+import Container from "./Container";
 
 export default function Root() {
     return (
-        <div className="container">
+        <Container>
             <Header />
             <motion.div
                 className="container-view"
@@ -13,6 +14,6 @@ export default function Root() {
                 Some activities should be here etcetera. Check one, two.
             </motion.div>
             <a href="/feed">Feed</a>
-        </div>
+        </Container>
     );
 }
