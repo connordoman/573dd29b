@@ -1,18 +1,27 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./Root";
-import ActivityFeed from "./feed/ActivityFeed";
+import ActivityFeed, { loader as activitiesLoader } from "./feed/ActivityFeed";
 import React from "react";
+import ErrorPage from "./ErrorPage";
+import ActivityDetail, { loader as activityDetailLoader } from "./feed/ActivityDetail";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Root />,
-        errorElement: <div>Sorry, there was an error.</div>,
-    },
-    {
-        path: "/feed",
-        element: <ActivityFeed />,
-        errorElement: <div>Sorry, there was an error.</div>,
+        errorElement: <ErrorPage />,
+        children: [
+            {
+                path: "calls",
+                element: <ActivityFeed />,
+                loader: activitiesLoader,
+            },
+            {
+                path: "calls/:activityId",
+                element: <ActivityDetail />,
+                loader: activityDetailLoader,
+            },
+        ],
     },
 ]);
 
