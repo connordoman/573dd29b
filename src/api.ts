@@ -63,3 +63,45 @@ export async function getCallDetails(id: string): Promise<Call | undefined> {
         return undefined;
     }
 }
+
+/**
+ * Update the `is_archived` state of a given call.
+ * @param id The ID of the call to be updated.
+ * @param archived The call's new archived status.
+ * @returns true if the call was updated, false otherwise.
+ */
+async function setCallArchived(id: string, archived: boolean): Promise<boolean> {
+    try {
+        const res = await fetch(`${BASE_URL}/activities/${id}`, {
+            method: "PATCH",
+            body: JSON.stringify({ is_archived: archived }),
+        });
+
+        if (!res.ok) {
+            throw new Error(`Failed to ${archived ? "" : "un"}archive call with ID: ${id}`);
+        }
+
+        return true;
+    } catch (err: any) {
+        console.error(err.message);
+        return false;
+    }
+}
+
+/**
+ * Helper function to archive a given call.
+ * @param id The call to archive.
+ * @returns true if the call was archived successfully, false otherwise.
+ */
+export async function archiveCall(id: string): Promise<boolean> {
+    return setCallArchived(id, true);
+}
+
+/**
+ * Helper function to unarchive a given call.
+ * @param id The call to unarchive.
+ * @returns true if the call was unarchived successfully, false otherwise.
+ */
+export async function unarchiveCall(id: string): Promise<boolean> {
+    return setCallArchived(id, false);
+}
