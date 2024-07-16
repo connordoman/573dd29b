@@ -26,7 +26,16 @@ export async function getAllCalls(): Promise<Call[] | undefined> {
 
         const calls: Call[] = await res.json();
 
-        return calls;
+        return calls.sort((a, b) => {
+            const aDate = new Date(a.created_at);
+            const bDate = new Date(b.created_at);
+
+            if (aDate > bDate) {
+                return -1;
+            } else {
+                return 1;
+            }
+        });
     } catch (err: any) {
         return undefined;
     }

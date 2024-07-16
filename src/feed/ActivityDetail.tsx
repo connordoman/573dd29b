@@ -1,6 +1,9 @@
 import { useLoaderData } from "react-router-dom";
 import { Call, getCallDetails } from "../api";
 import { motion } from "framer-motion";
+import { MdArrowBackIos } from "react-icons/md";
+import { capitalize } from "../util";
+import ContentFadeIn from "../ContentFadeIn";
 
 type LoaderActivityDetail = { activity: Call | undefined };
 
@@ -16,21 +19,23 @@ interface ActivityDetailProps {
 export default function ActivityDetail({ call }: ActivityDetailProps) {
     const { activity } = useLoaderData() as LoaderActivityDetail;
 
-    /**
-     * Return to the previous screen (probably all calls)
-     */
-    const handleGoBack = () => {
-        window.history.back();
-    };
+    if (!activity) {
+        return (
+            <ContentFadeIn>
+                <h1 className="text-2xl font-bold">Call not found.</h1>
+                <p>Sorry, there isn't a call with that ID.</p>
+            </ContentFadeIn>
+        );
+    }
+
+    const directionText = activity.direction === "inbound" ? "Incoming" : "Outgoing";
 
     return (
-        <motion.div initial={{ x: 50, opacity: 0 }} animate={{ x: 0, opacity: 1 }}>
-            <button onClick={handleGoBack} className="">
-                &lt;
-            </button>
+        <ContentFadeIn backButtonText="Calls list">
             <div>
+                <span className="text-xs text-zinc-400">{directionText} call</span>
                 <pre>{JSON.stringify(activity, null, 2)}</pre>
             </div>
-        </motion.div>
+        </ContentFadeIn>
     );
 }
