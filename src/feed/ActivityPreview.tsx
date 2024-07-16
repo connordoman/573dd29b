@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { Call, getCallDetails } from "../api";
 import { MdCallMade, MdInfoOutline, MdOutlineCallMissed, MdOutlineVoicemail } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { capitalize, readableDate } from "../util";
+import Caption from "../Caption";
 
 interface ActivityProps {
     call: Call;
@@ -10,13 +12,13 @@ interface ActivityProps {
 
 export default function ActivityPreview({ call, index }: ActivityProps) {
     // make inbound check more concise
-    const inbound: boolean = call.direction === "inbound";
+    const inbound = call.direction === "inbound";
 
     // outbound calls are TO the other person, inbound calls are FROM that person
-    const callerNumber: number = inbound ? call.from : call.to;
+    const callerNumber = inbound ? call.from : call.to;
 
     // convert date string to Date object
-    const createdDate: Date = new Date(call.created_at);
+    const createdDate = new Date(call.created_at);
 
     // use pattern matching for the call's status icon (I really wish TS had a `match` statement)
     const statusIcon = () => {
@@ -30,14 +32,6 @@ export default function ActivityPreview({ call, index }: ActivityProps) {
         }
     };
 
-    /**
-     * Opens the details view of a given call/activity
-     */
-    const handleInfoButtonClick = async () => {
-        const specificCall = await getCallDetails(call.id);
-        alert(`Activity Details:\n\n${JSON.stringify(specificCall, null, 2)}`);
-    };
-
     return (
         <motion.div
             className="px-3 py-2 border border-zinc-200 rounded-md flex items-center gap-3"
@@ -48,7 +42,7 @@ export default function ActivityPreview({ call, index }: ActivityProps) {
             <span className="border-l border-zinc-200 h-6"></span>
             <div className="px-2 flex-grow flex flex-col leading-none">
                 <h3 className="font-bold text-lg">{callerNumber}</h3>
-                <span className="font-xs text-zinc-300">{createdDate.toLocaleString()}</span>
+                <Caption>{capitalize(readableDate(call, true))}</Caption>
             </div>
             <Link to={`${call.id}`} className="text-xl">
                 <MdInfoOutline className="text-slate-500" />

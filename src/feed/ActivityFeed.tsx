@@ -14,7 +14,7 @@ export default function ActivityFeed() {
     const { activities } = useLoaderData() as LoaderActivityFeed;
 
     return (
-        <div className="relative flex flex-col overflow-y-scroll gap-6 px-3 py-6 flex-grow overflow-x-hidden">
+        <div className="relative flex flex-col overflow-y-scroll gap-4 px-3 py-4 flex-grow overflow-x-hidden">
             {activities?.map((call, index) => {
                 return <ActivityPreview call={call} index={index} key={call.id} />;
             })}

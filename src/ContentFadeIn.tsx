@@ -1,19 +1,26 @@
 import { motion } from "framer-motion";
 import { MdArrowBackIos } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 
 interface ContentFadeInProps {
     children?: React.ReactNode;
     className?: string;
     backButtonText?: string;
+    backButtonPath?: string;
 }
 
-export default function ContentFadeIn({ children, className, backButtonText }: ContentFadeInProps) {
+export default function ContentFadeIn({ children, className, backButtonText, backButtonPath }: ContentFadeInProps) {
+    const navigate = useNavigate();
     /**
      * Return to the previous screen (probably all calls)
      */
     const handleGoBack = () => {
-        window.history.back();
+        if (backButtonPath) {
+            return navigate(backButtonPath);
+        }
+        // go back, like `window.history.back()`
+        navigate(-1);
     };
 
     return (
@@ -21,8 +28,11 @@ export default function ContentFadeIn({ children, className, backButtonText }: C
             initial={{ x: 25, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ ease: "easeInOut", duration: 0.33 }}
-            className={twMerge("p-4 flex flex-col gap-4", className)}>
-            <button onClick={handleGoBack} className="text-lg flex items-center">
+            className={twMerge("p-4 flex flex-col gap-4 flex-grow", className)}>
+            <button
+                aria-label="Go back to previous page"
+                onClick={handleGoBack}
+                className="text-lg flex items-center w-min">
                 <MdArrowBackIos /> {backButtonText ?? "Back"}
             </button>
             {children}

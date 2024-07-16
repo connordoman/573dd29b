@@ -26,6 +26,8 @@ export async function getAllCalls(): Promise<Call[] | undefined> {
 
         const calls: Call[] = await res.json();
 
+        // sort the calls so that the newest calls are always first
+        // (API isn't said to be guaranteed chronological so sort is necessary)
         return calls.sort((a, b) => {
             const aDate = new Date(a.created_at);
             const bDate = new Date(b.created_at);
