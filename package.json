@@ -8,13 +8,14 @@
     "license": "",
     "private": false,
     "scripts": {
-        "start": "webpack-dev-server --mode development --open",
+        "dev": "webpack-dev-server --mode development --open",
         "build": "webpack --mode production"
     },
     "dependencies": {
         "framer-motion": "^11.3.2",
         "react": "^18.3.1",
-        "react-dom": "^18.3.1"
+        "react-dom": "^18.3.1",
+        "react-router-dom": "^6.24.1"
     },
     "devDependencies": {
         "@babel/core": "^7.24.9",

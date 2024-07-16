@@ -48,6 +48,7 @@ module.exports = {
     output: {
         filename: "bundle.js",
         path: path.resolve(__dirname, "dist"),
+        publicPath: "/",
         // libraryTarget: "module",
     },
     // experiments: {
@@ -59,5 +60,6 @@ module.exports = {
         },
         compress: true,
         port: 9000,
+        historyApiFallback: true,
     },
 };
