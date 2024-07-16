@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { archiveCall, Call, getCallDetails, unarchiveCall } from "../api";
 import { AnimatePresence, motion } from "framer-motion";
 import { MdArrowBackIos, MdOutlineCallMissed } from "react-icons/md";
@@ -18,11 +18,8 @@ export async function loader({ params }: { params: Record<string, any> }): Promi
     return { activity };
 }
 
-interface ActivityDetailProps {
-    call?: Call;
-}
-
-export default function ActivityDetail({ call }: ActivityDetailProps) {
+export default function ActivityDetail() {
+    const navigate = useNavigate();
     const { activity } = useLoaderData() as LoaderActivityDetail;
 
     const [isArchived, setIsArchived] = useState(activity?.is_archived ?? false);
@@ -62,14 +59,27 @@ export default function ActivityDetail({ call }: ActivityDetailProps) {
             }
             backButtonPath={isArchived ? "/archive" : "/calls"}>
             <div className="mx-1 flex-grow">
-                <Caption>
+                <Caption className="text-zinc-400">
                     {directionText} call, {readableDate(activity, true)}
                 </Caption>
                 <h1 className="text-2xl font-bold">{callerName}</h1>
                 <p>{callMetadata()}</p>
             </div>
             <Divider />
-            <ArchiveUpdateButton call={activity} onChange={(archived) => setIsArchived(archived)} />
+            <ArchiveUpdateButton
+                call={activity}
+                onChange={(archived) => {
+                    setIsArchived(archived);
+
+                    if (archived) {
+                        // window.history.replaceState(null, "", `/archive/${activity.id}`);
+                        navigate(`/archive/${activity.id}`, { replace: true });
+                    } else {
+                        // window.history.replaceState(null, "", `/calls/${activity.id}`);
+                        navigate(`/calls/${activity.id}`, { replace: true });
+                    }
+                }}
+            />
         </ContentFadeIn>
     );
 }
