@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Call } from "../api";
+import { Call, getCallDetails } from "../api";
 import { MdCallMade, MdInfoOutline, MdOutlineCallMissed, MdOutlineVoicemail } from "react-icons/md";
 
 interface ActivityProps {
@@ -32,8 +32,9 @@ export default function Activity({ call, index }: ActivityProps) {
     /**
      * Opens the details view of a given call/activity
      */
-    const handleInfoButtonClick = () => {
-        alert("Activity Details");
+    const handleInfoButtonClick = async () => {
+        const specificCall = await getCallDetails(call.id);
+        alert(`Activity Details:\n\n${JSON.stringify(specificCall, null, 2)}`);
     };
 
     return (
