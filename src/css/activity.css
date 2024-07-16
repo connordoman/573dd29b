@@ -1,0 +1,14 @@
+.activity-feed {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    gap: 0.5rem;
+    padding: 1rem 0.75rem;
+}
+
+.activity {
+    padding: 0.5rem;
+    border: 1px solid gray;
+    border-radius: 0.5rem;
+}

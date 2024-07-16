@@ -1,7 +1,7 @@
 export interface Call {
     id: string;
     created_at: string;
-    direciton: "inbound" | "outbound";
+    direction: "inbound" | "outbound";
     from: number;
     to: number;
     via: number;
