@@ -8,13 +8,13 @@ export async function loader(): Promise<LoaderActivityFeed> {
     const activities = await getAllCalls();
 
     if (activities) {
-        return { activities: activities.filter((call) => !call.is_archived) };
+        return { activities: activities.filter((call) => call.is_archived) };
     }
 
     return { activities: [] };
 }
 
-export default function ActivityFeed() {
+export default function ArchiveFeed() {
     const { activities } = useLoaderData() as LoaderActivityFeed;
 
     return (

@@ -4,11 +4,22 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
     return (
-        <header className="sticky w-full h-16 mx-auto px-8 py-4 text-center shadow-header flex">
+        <header className="sticky w-full h-16 mx-auto px-8 py-4 text-center shadow-header flex items-center justify-between">
             <AirCallLogo />
-            <Link to="calls" className="">
-                Calls
-            </Link>
+            <nav>
+                <ul className="flex gap-2 items-center">
+                    <li>
+                        <Link to="calls" className="">
+                            Calls
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="archive" className="">
+                            Archive
+                        </Link>
+                    </li>
+                </ul>
+            </nav>
         </header>
     );
 };

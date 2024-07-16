@@ -1,4 +1,5 @@
 import { useRouteError } from "react-router-dom";
+import ContentFadeIn from "./ContentFadeIn";
 import Container from "./Container";
 
 export default function ErrorPage() {
@@ -7,9 +8,11 @@ export default function ErrorPage() {
 
     return (
         <Container>
-            <h1>Sorry!</h1>
-            <p>An unexpected error has occurred.</p>
-            <p>{error.statusText ?? error.message}</p>
+            <ContentFadeIn>
+                <h1 className="text-2xl font-bold">Sorry!</h1>
+                <p>An unexpected error occurred:</p>
+                <p className="italic">{error.statusText ?? error.message}</p>
+            </ContentFadeIn>
         </Container>
     );
 }

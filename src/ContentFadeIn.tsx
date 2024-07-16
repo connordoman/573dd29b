@@ -6,7 +6,7 @@ import { twMerge } from "tailwind-merge";
 interface ContentFadeInProps {
     children?: React.ReactNode;
     className?: string;
-    backButtonText?: string;
+    backButtonText?: React.ReactNode | string;
     backButtonPath?: string;
 }
 
@@ -32,7 +32,7 @@ export default function ContentFadeIn({ children, className, backButtonText, bac
             <button
                 aria-label="Go back to previous page"
                 onClick={handleGoBack}
-                className="text-lg flex items-center w-min">
+                className="text-lg flex items-start w-min relative">
                 <MdArrowBackIos /> {backButtonText ?? "Back"}
             </button>
             {children}

@@ -4,6 +4,7 @@ import ActivityFeed, { loader as activitiesLoader } from "./feed/ActivityFeed";
 import React from "react";
 import ErrorPage from "./ErrorPage";
 import ActivityDetail, { loader as activityDetailLoader } from "./feed/ActivityDetail";
+import ArchiveFeed, { loader as archivedActivitiesLoader } from "./feed/ArchivedFeed";
 
 const router = createBrowserRouter([
     {
@@ -17,7 +18,17 @@ const router = createBrowserRouter([
                 loader: activitiesLoader,
             },
             {
+                path: "archive",
+                element: <ArchiveFeed />,
+                loader: archivedActivitiesLoader,
+            },
+            {
                 path: "calls/:activityId",
+                element: <ActivityDetail />,
+                loader: activityDetailLoader,
+            },
+            {
+                path: "archive/:activityId",
                 element: <ActivityDetail />,
                 loader: activityDetailLoader,
             },
