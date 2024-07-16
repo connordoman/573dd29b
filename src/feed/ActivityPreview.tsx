@@ -42,9 +42,9 @@ export default function ActivityPreview({ call, index }: ActivityProps) {
             <span className="border-l border-zinc-200 h-6"></span>
             <div className="px-2 flex-grow flex flex-col leading-none">
                 <h3 className="font-bold text-lg">{callerNumber}</h3>
-                <Caption>{capitalize(readableDate(call, true))}</Caption>
+                <Caption className="text-zinc-400">{capitalize(readableDate(call, true))}</Caption>
             </div>
-            <Link to={`/calls/${call.id}`} className="text-xl">
+            <Link to={`/${call.is_archived ? "archive" : "calls"}/${call.id}`} className="text-xl">
                 <MdInfoOutline className="text-slate-500" />
             </Link>
         </motion.div>

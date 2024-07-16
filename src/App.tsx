@@ -6,7 +6,7 @@ import ErrorPage from "./ErrorPage";
 import ActivityDetail, { loader as activityDetailLoader } from "./feed/ActivityDetail";
 import ArchiveFeed, { loader as archivedActivitiesLoader } from "./feed/ArchivedFeed";
 
-const router = createBrowserRouter([
+const routes = [
     {
         path: "/",
         element: <Root />,
@@ -34,7 +34,9 @@ const router = createBrowserRouter([
             },
         ],
     },
-]);
+];
+
+const router = createBrowserRouter(routes);
 
 const App = () => {
     return (
