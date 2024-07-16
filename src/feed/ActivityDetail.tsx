@@ -1,12 +1,14 @@
 import { useLoaderData } from "react-router-dom";
-import { Call, getCallDetails } from "../api";
-import { motion } from "framer-motion";
+import { archiveCall, Call, getCallDetails, unarchiveCall } from "../api";
+import { AnimatePresence, motion } from "framer-motion";
 import { MdArrowBackIos, MdOutlineCallMissed } from "react-icons/md";
 import { getCaller, readableDate, readableDuration } from "../util";
 import ContentFadeIn from "../ContentFadeIn";
 import SpanningButton from "../SpanningButton";
 import Divider from "../Divider";
 import Caption from "../Caption";
+import { useEffect, useState } from "react";
+import ArchiveUpdateButton from "./ArchiveUpdateButton";
 
 type LoaderActivityDetail = { activity: Call | undefined };
 
@@ -37,7 +39,7 @@ export default function ActivityDetail({ call }: ActivityDetailProps) {
 
     const duration = readableDuration(activity);
 
-    const callMetadata = () => {
+    const callMetadata = (): React.ReactNode => {
         switch (activity.call_type) {
             case "answered":
                 return <time aria-label="Duration of the call">{duration}</time>;
@@ -58,14 +60,9 @@ export default function ActivityDetail({ call }: ActivityDetailProps) {
                 </Caption>
                 <h1 className="text-2xl font-bold">{callerName}</h1>
                 <p>{callMetadata()}</p>
-                {/* <pre>{JSON.stringify(activity, null, 2)}</pre> */}
             </div>
             <Divider />
-            {activity.is_archived ? (
-                <SpanningButton>Unarchive</SpanningButton>
-            ) : (
-                <SpanningButton>Archive</SpanningButton>
-            )}
+            <ArchiveUpdateButton call={activity} />
         </ContentFadeIn>
     );
 }

@@ -74,7 +74,10 @@ async function setCallArchived(id: string, archived: boolean): Promise<boolean> 
     try {
         const res = await fetch(`${BASE_URL}/activities/${id}`, {
             method: "PATCH",
-            body: JSON.stringify({ is_archived: archived }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: `{\n  "is_archived": ${archived}\n}`,
         });
 
         if (!res.ok) {
