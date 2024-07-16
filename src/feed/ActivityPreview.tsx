@@ -8,7 +8,7 @@ interface ActivityProps {
     index: number;
 }
 
-export default function Activity({ call, index }: ActivityProps) {
+export default function ActivityPreview({ call, index }: ActivityProps) {
     // make inbound check more concise
     const inbound: boolean = call.direction === "inbound";
 
@@ -24,7 +24,7 @@ export default function Activity({ call, index }: ActivityProps) {
             case "answered":
                 return inbound ? null : <MdCallMade />;
             case "missed":
-                return <MdOutlineCallMissed className="text-red-600" />;
+                return <MdOutlineCallMissed className="text-red-600 " />;
             case "voicemail":
                 return <MdOutlineVoicemail />;
         }
@@ -40,11 +40,11 @@ export default function Activity({ call, index }: ActivityProps) {
 
     return (
         <motion.div
-            className="px-3 py-2 border border-zinc-200 rounded-md flex items-center gap-2"
+            className="px-3 py-2 border border-zinc-200 rounded-md flex items-center gap-3"
             initial={{ x: 25, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ ease: "easeInOut", duration: 0.33, delay: 0.1 * index }}>
-            <span className="aspect-square flex items-center justify-center text-lg w-4 h-4">{statusIcon()}</span>
+            <span className="aspect-square flex items-center justify-center text-lg min-w-4 h-4">{statusIcon()}</span>
             <span className="border-l border-zinc-200 h-6"></span>
             <div className="px-2 flex-grow flex flex-col leading-none">
                 <h3 className="font-bold text-lg">{callerNumber}</h3>
