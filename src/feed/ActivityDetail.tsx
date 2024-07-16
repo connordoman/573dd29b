@@ -9,6 +9,7 @@ import Divider from "../Divider";
 import Caption from "../Caption";
 import { useEffect, useState } from "react";
 import ArchiveUpdateButton from "./ArchiveUpdateButton";
+import CrossfadeText from "../CrossfadeText";
 
 type LoaderActivityDetail = { activity: Call | undefined };
 
@@ -23,6 +24,8 @@ interface ActivityDetailProps {
 
 export default function ActivityDetail({ call }: ActivityDetailProps) {
     const { activity } = useLoaderData() as LoaderActivityDetail;
+
+    const [isArchived, setIsArchived] = useState(activity?.is_archived ?? false);
 
     if (!activity) {
         return (
@@ -53,7 +56,11 @@ export default function ActivityDetail({ call }: ActivityDetailProps) {
     };
 
     return (
-        <ContentFadeIn backButtonText="Calls" backButtonPath="/calls">
+        <ContentFadeIn
+            backButtonText={
+                <CrossfadeText whenTrue="Archive" whenFalse="Calls" value={isArchived} className="left-0 top-0" />
+            }
+            backButtonPath={isArchived ? "/archive" : "/calls"}>
             <div className="mx-1 flex-grow">
                 <Caption>
                     {directionText} call, {readableDate(activity, true)}
@@ -62,7 +69,7 @@ export default function ActivityDetail({ call }: ActivityDetailProps) {
                 <p>{callMetadata()}</p>
             </div>
             <Divider />
-            <ArchiveUpdateButton call={activity} />
+            <ArchiveUpdateButton call={activity} onChange={(archived) => setIsArchived(archived)} />
         </ContentFadeIn>
     );
 }

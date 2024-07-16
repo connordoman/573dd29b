@@ -44,7 +44,7 @@ export default function ActivityPreview({ call, index }: ActivityProps) {
                 <h3 className="font-bold text-lg">{callerNumber}</h3>
                 <Caption>{capitalize(readableDate(call, true))}</Caption>
             </div>
-            <Link to={`${call.id}`} className="text-xl">
+            <Link to={`/calls/${call.id}`} className="text-xl">
                 <MdInfoOutline className="text-slate-500" />
             </Link>
         </motion.div>

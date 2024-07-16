@@ -5,9 +5,10 @@ import { useState, useEffect } from "react";
 
 interface ArchiveUpdateButtonProps {
     call: Call;
+    onChange?: (isArchived: boolean) => void;
 }
 
-export default function ArchiveUpdateButton({ call }: ArchiveUpdateButtonProps) {
+export default function ArchiveUpdateButton({ call, onChange }: ArchiveUpdateButtonProps) {
     const [isArchived, setIsArchived] = useState(false);
 
     /**
@@ -16,6 +17,12 @@ export default function ArchiveUpdateButton({ call }: ArchiveUpdateButtonProps) 
     useEffect(() => {
         if (call) setIsArchived(call.is_archived);
     }, [call]);
+
+    useEffect(() => {
+        if (onChange) {
+            onChange(isArchived);
+        }
+    }, [isArchived]);
 
     /**
      * Click handler for setting the call to `archived`
