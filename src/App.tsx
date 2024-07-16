@@ -1,19 +1,26 @@
-import { motion } from "framer-motion";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Root from "./Root";
+import ActivityFeed from "./feed/ActivityFeed";
+import React from "react";
 
-import Header from "./Header";
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Root />,
+        errorElement: <div>Sorry, there was an error.</div>,
+    },
+    {
+        path: "/feed",
+        element: <ActivityFeed />,
+        errorElement: <div>Sorry, there was an error.</div>,
+    },
+]);
 
 const App = () => {
     return (
-        <div className="container">
-            <Header />
-            <motion.div
-                className="container-view"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ ease: "easeOut", duration: 0.33 }}>
-                Some activities should be here etcetera. Check one, two.
-            </motion.div>
-        </div>
+        <React.StrictMode>
+            <RouterProvider router={router} />
+        </React.StrictMode>
     );
 };
 

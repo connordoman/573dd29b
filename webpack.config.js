@@ -22,7 +22,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ["style-loader", "css-loader"],
+                use: ["style-loader", "css-loader", "postcss-loader"],
             },
             {
                 test: /\.(js|jsx|ts|tsx)$/,
@@ -48,6 +48,7 @@ module.exports = {
     output: {
         filename: "bundle.js",
         path: path.resolve(__dirname, "dist"),
+        publicPath: "/",
         // libraryTarget: "module",
     },
     // experiments: {
@@ -59,5 +60,6 @@ module.exports = {
         },
         compress: true,
         port: 9000,
+        historyApiFallback: true,
     },
 };
