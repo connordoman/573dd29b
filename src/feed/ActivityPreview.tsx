@@ -44,7 +44,7 @@ export default function ActivityPreview({ call, index }: ActivityProps) {
                 <h3 className="font-bold text-lg">{callerNumber}</h3>
                 <Caption className="text-zinc-400">{capitalize(readableDate(call, true))}</Caption>
             </div>
-            <Link to={`/${call.is_archived ? "archive" : "calls"}/${call.id}`} className="text-xl">
+            <Link to={`/${call.is_archived ? "archive" : "calls"}/${call.id}`} className="text-xl px-2">
                 <MdInfoOutline className="text-green-500" />
             </Link>
         </motion.div>

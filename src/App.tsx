@@ -5,6 +5,7 @@ import React from "react";
 import ErrorPage from "./ErrorPage";
 import ActivityDetail, { loader as activityDetailLoader } from "./feed/ActivityDetail";
 import ArchiveFeed, { loader as archivedActivitiesLoader } from "./feed/ArchivedFeed";
+import { MotionConfig } from "framer-motion";
 
 const routes = [
     {
@@ -41,7 +42,9 @@ const router = createBrowserRouter(routes);
 const App = () => {
     return (
         <React.StrictMode>
-            <RouterProvider router={router} />
+            <MotionConfig reducedMotion="user">
+                <RouterProvider router={router} />
+            </MotionConfig>
         </React.StrictMode>
     );
 };
