@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-    @apply min-h-[100vh] flex items-center justify-center bg-slate-700;
+    @apply min-h-[100vh] flex items-center justify-center sm:bg-slate-700;
 }
 
 header svg {
