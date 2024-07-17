@@ -108,3 +108,57 @@ export async function archiveCall(id: string): Promise<boolean> {
 export async function unarchiveCall(id: string): Promise<boolean> {
     return setCallArchived(id, false);
 }
+
+/**
+ * Archives all calls in the list that are not already marked archived.
+ * @param calls A list of calls to attempt to archive.
+ * @returns true if any call is archived, false if no calls are archived
+ */
+export async function archiveMany(calls: Call[]): Promise<boolean> {
+    try {
+        if (calls.length === 0) throw new Error("No calls to archive.");
+
+        let result = false;
+
+        for (const call of calls) {
+            if (!call.is_archived) {
+                const res = await archiveCall(call.id);
+
+                // if any operation succeeds, the function returns true.
+                result ||= res;
+            }
+        }
+
+        return true;
+    } catch (err: any) {
+        console.error(err);
+        return false;
+    }
+}
+
+/**
+ * Unarchives all calls in the list that are not already marked unarchived.
+ * @param calls A list of calls to attempt to unarchive.
+ * @returns true if any call is unarchived, false if no calls are unarchived
+ */
+export async function unarchiveMany(calls: Call[]): Promise<boolean> {
+    try {
+        if (calls.length === 0) throw new Error("No calls to unarchive.");
+
+        let result = false;
+
+        for (const call of calls) {
+            if (call.is_archived) {
+                const res = await unarchiveCall(call.id);
+
+                // if any operation succeeds, the function returns true.
+                result ||= res;
+            }
+        }
+
+        return true;
+    } catch (err: any) {
+        console.error(err);
+        return false;
+    }
+}
