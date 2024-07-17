@@ -1,6 +1,6 @@
 import { useRouteError } from "react-router-dom";
-import ContentFadeIn from "./ContentFadeIn";
-import Container from "./Container";
+import ContentFadeIn from "./layout/ContentFadeIn";
+import Container from "./layout/Container";
 
 export default function ErrorPage() {
     const error: any = useRouteError();

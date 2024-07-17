@@ -1,15 +1,15 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
-import { archiveCall, Call, getCallDetails, unarchiveCall } from "../api";
+import { archiveCall, Call, getCallDetails, unarchiveCall } from "../lib/api";
 import { AnimatePresence, motion } from "framer-motion";
 import { MdArrowBackIos, MdOutlineCallMissed } from "react-icons/md";
-import { getCaller, readableDate, readableDuration } from "../util";
-import ContentFadeIn from "../ContentFadeIn";
-import SpanningButton from "../SpanningButton";
-import Divider from "../Divider";
-import Caption from "../Caption";
+import { getCaller, readableDate, readableDuration } from "../lib/util";
+import ContentFadeIn from "../layout/ContentFadeIn";
+import SpanningButton from "../input/SpanningButton";
+import Divider from "../layout/Divider";
+import Caption from "../typography/Caption";
 import { useEffect, useState } from "react";
 import ArchiveUpdateButton from "./ArchiveUpdateButton";
-import CrossfadeText from "../CrossfadeText";
+import CrossfadeText from "../typography/CrossfadeText";
 
 type LoaderActivityDetail = { activity: Call | undefined };
 
@@ -22,7 +22,7 @@ export default function ActivityDetail() {
     const navigate = useNavigate();
     const { activity } = useLoaderData() as LoaderActivityDetail;
 
-    const [isArchived, setIsArchived] = useState(activity?.is_archived ?? false);
+    const [initiallyArchived, setInitiallyArchived] = useState(activity?.is_archived ?? false);
 
     if (!activity) {
         return (
@@ -54,10 +54,8 @@ export default function ActivityDetail() {
 
     return (
         <ContentFadeIn
-            backButtonText={
-                <CrossfadeText whenTrue="Archive" whenFalse="Calls" value={isArchived} className="left-0 top-0" />
-            }
-            backButtonPath={isArchived ? "/archive" : "/calls"}>
+            backButtonText={<span className="leading-none">{initiallyArchived ? "Archive" : "Calls"}</span>}
+            backButtonPath={initiallyArchived ? "/archive" : "/calls"}>
             <div className="mx-1 flex-grow">
                 <Caption className="text-zinc-400">
                     {directionText} call, {readableDate(activity, true)}
@@ -65,17 +63,12 @@ export default function ActivityDetail() {
                 <h1 className="text-2xl font-bold">{callerName}</h1>
                 <p>{callMetadata()}</p>
             </div>
-            <Divider />
             <ArchiveUpdateButton
                 call={activity}
                 onChange={(archived) => {
-                    setIsArchived(archived);
-
                     if (archived) {
-                        // window.history.replaceState(null, "", `/archive/${activity.id}`);
                         navigate(`/archive/${activity.id}`, { replace: true });
                     } else {
-                        // window.history.replaceState(null, "", `/calls/${activity.id}`);
                         navigate(`/calls/${activity.id}`, { replace: true });
                     }
                 }}

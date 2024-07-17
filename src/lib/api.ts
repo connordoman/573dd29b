@@ -108,3 +108,65 @@ export async function archiveCall(id: string): Promise<boolean> {
 export async function unarchiveCall(id: string): Promise<boolean> {
     return setCallArchived(id, false);
 }
+
+/**
+ * Archives all calls in the list that are not already marked archived.
+ * @param calls A list of calls to attempt to archive.
+ * @returns true if any call is archived, false if no calls are archived
+ */
+export async function archiveMany(calls: Call[]): Promise<boolean> {
+    try {
+        if (calls.length === 0) throw new Error("No calls to unarchive.");
+
+        // batch all operations so that navigation doesn't interrupt them
+        const results = await Promise.all(
+            calls.map((c) => {
+                if (!c.is_archived) return archiveCall(c.id);
+            })
+        );
+
+        // reduce the results to find at least one successful operation
+        return (
+            results.reduce((prev, current) => {
+                if (current !== undefined) {
+                    return (prev ||= current);
+                }
+                return prev;
+            }) ?? false
+        );
+    } catch (err: any) {
+        console.error(err);
+        return false;
+    }
+}
+
+/**
+ * Unarchives all calls in the list that are not already marked unarchived.
+ * @param calls A list of calls to attempt to unarchive.
+ * @returns true if any call is unarchived, false if no calls are unarchived
+ */
+export async function unarchiveMany(calls: Call[]): Promise<boolean> {
+    try {
+        if (calls.length === 0) throw new Error("No calls to unarchive.");
+
+        // batch all operations so that navigation doesn't interrupt them
+        const results = await Promise.all(
+            calls.map((c) => {
+                if (c.is_archived) return unarchiveCall(c.id);
+            })
+        );
+
+        // reduce the results to find at least one successful operation
+        return (
+            results.reduce((prev, current) => {
+                if (current !== undefined) {
+                    return (prev ||= current);
+                }
+                return prev;
+            }) ?? false
+        );
+    } catch (err: any) {
+        console.error(err);
+        return false;
+    }
+}
