@@ -9,7 +9,7 @@
     "private": false,
     "scripts": {
         "dev": "webpack-dev-server --mode development --open",
-        "build": "webpack --mode production"
+        "build": "webpack --mode production && cp public/_redirects dist/_redirects"
     },
     "dependencies": {
         "framer-motion": "^11.3.2",
