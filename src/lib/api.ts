@@ -116,20 +116,24 @@ export async function unarchiveCall(id: string): Promise<boolean> {
  */
 export async function archiveMany(calls: Call[]): Promise<boolean> {
     try {
-        if (calls.length === 0) throw new Error("No calls to archive.");
+        if (calls.length === 0) throw new Error("No calls to unarchive.");
 
-        let result = false;
+        // batch all operations so that navigation doesn't interrupt them
+        const results = await Promise.all(
+            calls.map((c) => {
+                if (!c.is_archived) return archiveCall(c.id);
+            })
+        );
 
-        for (const call of calls) {
-            if (!call.is_archived) {
-                const res = await archiveCall(call.id);
-
-                // if any operation succeeds, the function returns true.
-                result ||= res;
-            }
-        }
-
-        return true;
+        // reduce the results to find at least one successful operation
+        return (
+            results.reduce((prev, current) => {
+                if (current !== undefined) {
+                    return (prev ||= current);
+                }
+                return prev;
+            }) ?? false
+        );
     } catch (err: any) {
         console.error(err);
         return false;
@@ -145,18 +149,22 @@ export async function unarchiveMany(calls: Call[]): Promise<boolean> {
     try {
         if (calls.length === 0) throw new Error("No calls to unarchive.");
 
-        let result = false;
+        // batch all operations so that navigation doesn't interrupt them
+        const results = await Promise.all(
+            calls.map((c) => {
+                if (c.is_archived) return unarchiveCall(c.id);
+            })
+        );
 
-        for (const call of calls) {
-            if (call.is_archived) {
-                const res = await unarchiveCall(call.id);
-
-                // if any operation succeeds, the function returns true.
-                result ||= res;
-            }
-        }
-
-        return true;
+        // reduce the results to find at least one successful operation
+        return (
+            results.reduce((prev, current) => {
+                if (current !== undefined) {
+                    return (prev ||= current);
+                }
+                return prev;
+            }) ?? false
+        );
     } catch (err: any) {
         console.error(err);
         return false;
