@@ -1,5 +1,5 @@
 import React from "react";
-import AirCallLogo from "./AirCallLogo";
+import AirCallLogo from "../AirCallLogo";
 import { Link } from "react-router-dom";
 
 const Header = () => {

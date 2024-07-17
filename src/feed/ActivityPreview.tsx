@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
-import { Call, getCallDetails } from "../api";
+import { Call, getCallDetails } from "../lib/api";
 import { MdCallMade, MdInfoOutline, MdOutlineCallMissed, MdOutlineVoicemail } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { capitalize, readableDate } from "../util";
-import Caption from "../Caption";
+import { capitalize, readableDate } from "../lib/util";
+import Caption from "../typography/Caption";
 
 interface ActivityProps {
     call: Call;
@@ -45,7 +45,7 @@ export default function ActivityPreview({ call, index }: ActivityProps) {
                 <Caption className="text-zinc-400">{capitalize(readableDate(call, true))}</Caption>
             </div>
             <Link to={`/${call.is_archived ? "archive" : "calls"}/${call.id}`} className="text-xl">
-                <MdInfoOutline className="text-slate-500" />
+                <MdInfoOutline className="text-green-500" />
             </Link>
         </motion.div>
     );

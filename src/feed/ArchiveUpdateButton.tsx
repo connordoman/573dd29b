@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
-import SpanningButton from "../SpanningButton";
-import { archiveCall, Call, unarchiveCall } from "../api";
+import SpanningButton from "../input/SpanningButton";
+import { archiveCall, Call, unarchiveCall } from "../lib/api";
 import { useState, useEffect } from "react";
 
 interface ArchiveUpdateButtonProps {

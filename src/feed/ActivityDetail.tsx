@@ -1,15 +1,15 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
-import { archiveCall, Call, getCallDetails, unarchiveCall } from "../api";
+import { archiveCall, Call, getCallDetails, unarchiveCall } from "../lib/api";
 import { AnimatePresence, motion } from "framer-motion";
 import { MdArrowBackIos, MdOutlineCallMissed } from "react-icons/md";
-import { getCaller, readableDate, readableDuration } from "../util";
-import ContentFadeIn from "../ContentFadeIn";
-import SpanningButton from "../SpanningButton";
-import Divider from "../Divider";
-import Caption from "../Caption";
+import { getCaller, readableDate, readableDuration } from "../lib/util";
+import ContentFadeIn from "../layout/ContentFadeIn";
+import SpanningButton from "../input/SpanningButton";
+import Divider from "../layout/Divider";
+import Caption from "../typography/Caption";
 import { useEffect, useState } from "react";
 import ArchiveUpdateButton from "./ArchiveUpdateButton";
-import CrossfadeText from "../CrossfadeText";
+import CrossfadeText from "../typography/CrossfadeText";
 
 type LoaderActivityDetail = { activity: Call | undefined };
 
