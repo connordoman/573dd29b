@@ -1,10 +1,11 @@
 import { Call, getAllCalls, unarchiveMany } from "../lib/api";
-import Divider from "../layout/Divider";
 import SpanningButton from "../input/SpanningButton";
 import ActivityPreview from "./ActivityPreview";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import LoadingPane from "../layout/LoadingPane";
+import FadeInHeading from "../typography/FadeInHeading";
+import FadeInParagraph from "../typography/FadeInParagraph";
 
 type LoaderActivityFeed = { activities: Call[] };
 
@@ -37,8 +38,10 @@ export default function ArchiveFeed() {
     return (
         <div className="relative flex flex-col overflow-y-auto gap-4 px-3 py-4 flex-grow overflow-x-hidden">
             <div className="px-1">
-                <h1 className="text-3xl font-bold">Archive</h1>
-                {activities.length === 0 ? <p className="mt-2">No archived calls.</p> : null}
+                <FadeInHeading>Archive</FadeInHeading>
+                {activities.length === 0 ? (
+                    <FadeInParagraph className="mt-2">No archived calls.</FadeInParagraph>
+                ) : null}
             </div>
             <div className="flex flex-col gap-4 flex-grow">
                 {activities?.map((call, index) => {

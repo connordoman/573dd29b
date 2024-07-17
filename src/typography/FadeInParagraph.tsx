@@ -1,17 +1,18 @@
 import { motion } from "framer-motion";
 
-interface FadeInHeadingProps {
+interface FadeInParagraphProps {
     children?: React.ReactNode | string;
+    className?: string;
 }
 
-export default function FadeInHeading({ children }: FadeInHeadingProps) {
+export default function FadeInParagraph({ children, className }: FadeInParagraphProps) {
     return (
-        <motion.h1
+        <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.33 }}
-            className="text-3xl font-bold">
+            className={className}>
             {children}
-        </motion.h1>
+        </motion.p>
     );
 }

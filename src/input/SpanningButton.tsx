@@ -18,6 +18,9 @@ export default function SpanningButton({
         <motion.button
             whileHover={{ backgroundColor: disabled ? "rgb(228 228 231 / 0.4)" : "rgb(228 228 231 / 0.75)" }}
             whileTap={{ backgroundColor: disabled ? "rgb(228 228 231 / 0.4)" : "rgb(228 228 231)" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.33 }}
             disabled={disabled}
             className={twMerge(
                 "bg-zinc-200/40 px-3 py-2 rounded-md relative min-h-10 top-0 left-0",

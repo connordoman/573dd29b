@@ -1,15 +1,11 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
-import { archiveCall, Call, getCallDetails, unarchiveCall } from "../lib/api";
-import { AnimatePresence, motion } from "framer-motion";
-import { MdArrowBackIos, MdOutlineCallMissed } from "react-icons/md";
+import { Call, getCallDetails } from "../lib/api";
+import { MdOutlineCallMissed } from "react-icons/md";
 import { getCaller, readableDate, readableDuration } from "../lib/util";
 import ContentFadeIn from "../layout/ContentFadeIn";
-import SpanningButton from "../input/SpanningButton";
-import Divider from "../layout/Divider";
 import Caption from "../typography/Caption";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ArchiveUpdateButton from "./ArchiveUpdateButton";
-import CrossfadeText from "../typography/CrossfadeText";
 
 type LoaderActivityDetail = { activity: Call | undefined };
 
@@ -22,7 +18,7 @@ export default function ActivityDetail() {
     const navigate = useNavigate();
     const { activity } = useLoaderData() as LoaderActivityDetail;
 
-    const [initiallyArchived, setInitiallyArchived] = useState(activity?.is_archived ?? false);
+    const [initiallyArchived, _setInitiallyArchived] = useState(activity?.is_archived ?? false);
 
     if (!activity) {
         return (
@@ -39,6 +35,10 @@ export default function ActivityDetail() {
 
     const duration = readableDuration(activity);
 
+    /**
+     * Helper function meant that pattern matches `call_type`.
+     * @returns The appropriate metadata component
+     */
     const callMetadata = (): React.ReactNode => {
         switch (activity.call_type) {
             case "answered":

@@ -27,8 +27,7 @@ export default function CrossfadeText({ whenTrue, whenFalse, value, className }:
                         exit="exit"
                         variants={textVariants}
                         transition={{ duration: 0.5 }}
-                        // className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-fit">
-                        className="absolute w-fit leading-none">
+                        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-fit">
                         {whenTrue}
                     </motion.span>
                 ) : (
@@ -39,7 +38,7 @@ export default function CrossfadeText({ whenTrue, whenFalse, value, className }:
                         exit="exit"
                         variants={textVariants}
                         transition={{ duration: 0.5 }}
-                        className="absolute w-fit leading-none">
+                        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-fit">
                         {whenFalse}
                     </motion.span>
                 )}

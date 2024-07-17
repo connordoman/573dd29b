@@ -9,6 +9,7 @@ export default function Footer() {
     const [currentHighlighted, setCurrentHighlighted] = useState(location.pathname.split("/")[1]);
 
     useEffect(() => {
+        // when the location changes, update the highlighted tab member
         setCurrentHighlighted(location.pathname.split("/")[1]);
     }, [location]);
 
