@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Call, getCallDetails } from "../lib/api";
+import { Call } from "../lib/api";
 import { MdCallMade, MdInfoOutline, MdOutlineCallMissed, MdOutlineVoicemail } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { capitalize, readableDate } from "../lib/util";

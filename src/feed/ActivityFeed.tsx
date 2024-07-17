@@ -1,5 +1,4 @@
 import { archiveMany, Call, getAllCalls } from "../lib/api";
-import Divider from "../layout/Divider";
 import SpanningButton from "../input/SpanningButton";
 import ActivityPreview from "./ActivityPreview";
 import { useLoaderData, useNavigate } from "react-router-dom";

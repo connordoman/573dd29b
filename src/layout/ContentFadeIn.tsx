@@ -32,7 +32,7 @@ export default function ContentFadeIn({ children, className, backButtonText, bac
             <button
                 aria-label="Go back to previous page"
                 onClick={handleGoBack}
-                className="text-lg flex items-start w-min relative">
+                className="text-lg flex items-start w-min relative mt-2">
                 <MdArrowBackIos /> {backButtonText ?? "Back"}
             </button>
             {children}

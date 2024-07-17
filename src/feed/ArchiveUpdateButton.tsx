@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import SpanningButton from "../input/SpanningButton";
 import { archiveCall, Call, unarchiveCall } from "../lib/api";
 import { useState, useEffect } from "react";
+import CrossfadeText from "../typography/CrossfadeText";
 
 interface ArchiveUpdateButtonProps {
     call: Call;
@@ -56,29 +57,12 @@ export default function ArchiveUpdateButton({ call, onChange }: ArchiveUpdateBut
             key={isArchived ? "archived" : "not-archived"}
             onClick={isArchived ? handleUnarchive : handleArchive}>
             <AnimatePresence>
-                {isArchived ? (
-                    <motion.div
-                        key="archived"
-                        initial="initial"
-                        animate="animate"
-                        exit="exit"
-                        variants={textVariants}
-                        transition={{ duration: 0.5 }}
-                        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                        <span>Unarchive</span>
-                    </motion.div>
-                ) : (
-                    <motion.div
-                        key="unarchived"
-                        initial="initial"
-                        animate="animate"
-                        exit="exit"
-                        variants={textVariants}
-                        transition={{ duration: 0.5 }}
-                        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                        <span>Archive</span>
-                    </motion.div>
-                )}
+                <CrossfadeText
+                    whenFalse="Archive"
+                    whenTrue="Unarchive"
+                    value={isArchived}
+                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                />
             </AnimatePresence>
         </SpanningButton>
     );
